@@ -31,7 +31,8 @@ app.use(bodyParser.json())
 //using CORS for request
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    // origin: "http://localhost:3000",
+    origin: "https://auth-server-syyz.onrender.com",
     credentials: true,
   })
 );
