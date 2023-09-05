@@ -32,7 +32,7 @@ app.use(bodyParser.json())
 app.use(
   cors({
     // origin: "http://localhost:3000",
-    origin: "https://auth-server-syyz.onrender.com",
+    origin: "https://auth-client-80ok.onrender.com",
     credentials: true,
   })
 );
