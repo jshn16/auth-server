@@ -33,7 +33,7 @@ app.use(
   cors({
     // origin: "http://localhost:3000",
     // origin: "https://auth-client-80ok.onrender.com",
-    
+
     // credentials: true,
   })
 );
@@ -65,13 +65,18 @@ app.post('/register', (req, res) => {
     username: req.body.username,
     email: req.body.email,
   }), req.body.password,
-    (error, user) => {
+    (error, user, info) => {
       if (user) {
         console.log(user)
         res.json(user)
       }
+      else if (info) {
+        // console.log(info)
+        // res.json(error)
+      }
       else {
         console.log(error)
+        res.json(error)
       }
     });
 
@@ -80,23 +85,34 @@ app.post('/register', (req, res) => {
 
 
 app.post('/login', (req, res) => {
-  passport.authenticate('local', (error, user) => {
+  passport.authenticate('local', (error, user, info) => {
 
     if (user) {
-    
+
       console.log(user)
       res.json(user)
     }
-    if(!user) {
-      console.log('User Not Found')
-     
+    else if (info) {
+      console.log(info.message)
+      res.json(info.message)
+
     }
     if (error) {
       console.log(error)
+
     }
 
   })(req, res)
 })
+
+
+
+exports.isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+    console.log("authenticatred")
+  }
+}
 
 
 
